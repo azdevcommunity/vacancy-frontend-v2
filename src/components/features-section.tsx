@@ -22,14 +22,14 @@ export function FeaturesSection() {
       description: "Mükəmməl namizədləri tapmaq üçün iş siyahılarınızı asanlıqla yerləşdirin və idarə edin",
       icon: PlusCircle,
       color: "from-emerald-500/20 to-teal-500/20",
-      path: "/post-job"
+      path: "/add-vacancy"
     },
     {
       title: "CV yarat",
       description: "İntuitiv CV qurucu alətimizlə peşəkar CV yaradın",
       icon: FileText,
       color: "from-orange-500/20 to-red-500/20",
-      path: "/add-vacancy"
+      path: "/create-cv"
     }
   ]
 
