@@ -8,7 +8,7 @@ import VacanciesPage from "@/components/VacanciesPage.tsx";
 import AddVacancy from "@/components/AddVacancy.tsx";
 
 function App() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<string | null>(null); // Track the selected project
 
     // Define your sidebar items here
@@ -38,11 +38,6 @@ function App() {
 
         },
     ];
-
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
-
     const handleProjectSelection = (projectPath: string) => {
         setSelectedProject(projectPath); // Update the selected project
     };

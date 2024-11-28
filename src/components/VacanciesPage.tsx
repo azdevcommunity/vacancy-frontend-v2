@@ -61,9 +61,8 @@ const sampleJobs: Job[] = [
 ]
 
 export default function VacanciesPage() {
-    const [searchQuery, setSearchQuery] = useState("")
     const [selectedJob, setSelectedJob] = useState<Job | null>(sampleJobs[0])
-    const [favorites, setFavorites] = useState<Set<string>>(new Set())
+    const [, setFavorites] = useState<Set<string>>(new Set())
 
     const handleFilterChange = (key: string, value: string) => {
         // Implement filtering logic here

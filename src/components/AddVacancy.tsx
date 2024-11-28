@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm, useController, reset } from 'react-hook-form'
+import { useForm, useController } from 'react-hook-form'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -65,9 +65,11 @@ const categories = [
 ]
 
 export default function AddVacancy() {
-    const { register, handleSubmit, formState: { errors }, control, reset } = useForm()
+    const { register, handleSubmit, control, reset } = useForm()
     const [isSalaryByAgreement, setIsSalaryByAgreement] = useState(false)
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
     const onSubmit = (data) => {
         console.log(data)
         // Here you would typically send this data to your backend
@@ -131,10 +133,13 @@ export default function AddVacancy() {
                                     disabled={isSalaryByAgreement}
                                 />
                                 <div className="flex items-center space-x-2">
+
                                     <Checkbox
                                         id="salaryByAgreement"
                                         checked={isSalaryByAgreement}
                                         onCheckedChange={(checked) => {
+                                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                            //@ts-expect-error
                                             setIsSalaryByAgreement(checked)
                                             if (checked) {
                                                 register('salary').onChange({target: {value: 'Razılaşma yolu ilə'}})
