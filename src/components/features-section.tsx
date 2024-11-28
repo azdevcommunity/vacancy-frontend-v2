@@ -29,7 +29,7 @@ export function FeaturesSection() {
       description: "İntuitiv CV qurucu alətimizlə peşəkar CV yaradın",
       icon: FileText,
       color: "from-orange-500/20 to-red-500/20",
-      path: "/create-cv"
+      path: "/add-vacancy"
     }
   ]
 
