@@ -3,20 +3,69 @@ import {FeaturesSection} from "@/components/features-section.tsx";
 import {CvCarousel} from "@/components/cv-carousel.tsx";
 import {PremiumJobPostings} from "@/components/premium-job-postings.tsx";
 import {FooterComponent} from "@/components/footer.tsx";
+import { motion } from "framer-motion";
 
 export const Dashboard = () => {
     return (
         <>
-            <div
-                className="w-full flex flex-col items-center bg-arc-blue-100 justify-center pb-20 max-sm: px-20"
-            >
-                <div className={"pt-20"}>
-                    <h1 className={"text-white font-bold text-7xl"}>İdeal işin bir klik uzaqdadır</h1>
-                    <h1 className={"text-white font-bold text-7xl"}>Axtarışa indi başla</h1>
-                    <SearchComponent/>
-
+            <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
+                {/* Background with gradient and pattern */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
+                    <div className="absolute inset-0 bg-grid-white/[0.2] bg-[size:20px_20px]"/>
                 </div>
 
+                {/* Animated circles */}
+                <motion.div
+                    className="absolute top-1/4 left-1/4 w-72 h-72 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        x: [0, 50, 0],
+                        y: [0, 30, 0],
+                    }}
+                    transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                    }}
+                />
+                <motion.div
+                    className="absolute top-1/3 right-1/4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+                    animate={{
+                        scale: [1, 1.1, 1],
+                        x: [0, -30, 0],
+                        y: [0, 50, 0],
+                    }}
+                    transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                    }}
+                />
+
+                {/* Content */}
+                <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
+                    <motion.h1
+                        className="text-white font-bold text-5xl sm:text-6xl lg:text-7xl mb-6"
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.8}}
+                    >
+                        <span className="block mb-2">İdeal işin bir klik uzaqdadır</span>
+                        <span className="block">Axtarışa indi başla</span>
+                    </motion.h1>
+                    <motion.div
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.8, delay: 0.3}}
+                    >
+                        <SearchComponent/>
+                    </motion.div>
+                </div>
+
+                {/* Decorative elements */}
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-white/10 backdrop-blur-lg"/>
+                <div
+                    className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-white to-transparent"/>
             </div>
             <FeaturesSection/>
             <CvCarousel/>

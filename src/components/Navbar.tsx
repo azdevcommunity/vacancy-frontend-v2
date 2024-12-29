@@ -34,7 +34,7 @@ export function Navbar() {
                 {name: "Internship", link: "#"},
             ],
         },
-        {name: "Namizədlər", link: "#", icon: "👥"},
+        {name: "Namizədlər", path: "/candidates", icon: "👥"},
         {name: "Haqqımızda", link: "#", icon: "ℹ️"},
     ]
 
@@ -78,7 +78,7 @@ export function Navbar() {
                                         </div>
                                     ) : (
                                         <Link
-                                            to={item.link}
+                                            to={item.path!}
                                             className="flex items-center rounded-md py-2 text-lg font-semibold transition-colors hover:bg-accent hover:text-accent-foreground"
                                             onClick={() => setIsOpen(false)}
                                         >
@@ -138,7 +138,7 @@ export function Navbar() {
                             </NavigationMenuContent>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                            <Link to="#">
+                            <Link to="/candidates">
                                 <NavigationMenuLink
                                     className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
                                     Namizədlər

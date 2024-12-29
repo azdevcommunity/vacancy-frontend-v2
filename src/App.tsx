@@ -6,6 +6,7 @@ import {useState} from 'react';
 import {Navbar} from "@/components/Navbar.tsx";
 import VacanciesPage from "@/components/VacanciesPage.tsx";
 import AddVacancy from "@/components/AddVacancy.tsx";
+import CandidatesScreen from "@/components/candidates-screen.tsx";
 
 function App() {
     const [isSidebarOpen] = useState(false);
@@ -67,6 +68,7 @@ function App() {
                             <Route path="/settings" element={<div>Settings</div>}/>
                             <Route path="/vacancies" element={<VacanciesPage/>}/>
                             <Route path="/add-vacancy" element={<AddVacancy/>}/>
+                            <Route path={"/candidates"} element={<CandidatesScreen/>}/>
                         </Routes>
                     </div>
                 </div>

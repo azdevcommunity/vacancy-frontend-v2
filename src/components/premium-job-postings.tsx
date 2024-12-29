@@ -3,6 +3,7 @@ import { CheckCircle, Briefcase, User } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {useNavigate} from "react-router-dom";
 
 export function PremiumJobPostings() {
   const features = [
@@ -11,6 +12,8 @@ export function PremiumJobPostings() {
     "Xüsusi dəstək komandası",
     "Fərdi markalaşdırma seçimləri",
   ]
+
+  const navigate = useNavigate();
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50 px-6 py-24">
@@ -59,7 +62,7 @@ export function PremiumJobPostings() {
               </ul>
             </CardContent>
             <CardFooter>
-              <Button className="w-full" size="lg">
+              <Button className="w-full" size="lg" onClick={() => navigate("/candidates")}>
                 Premium elan paylaş
               </Button>
             </CardFooter>
