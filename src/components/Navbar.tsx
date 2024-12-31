@@ -1,11 +1,10 @@
 'use client'
 
-import { Menu, Search, ChevronRight } from 'lucide-react'
-import { useState } from 'react'
+import { Menu, ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -20,6 +19,16 @@ import { Separator } from "@/components/ui/separator"
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
     const navigate = useNavigate()
+    const [isScrolled, setIsScrolled] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 0)
+        }
+
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
     const menuItems = [
         { name: "Ana Səhifə", link: "#", icon: "🏠", path: "/" },
@@ -39,8 +48,14 @@ export function Navbar() {
     ]
 
     return (
-        <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm">
-            <div className="container flex h-16 items-center justify-between px-4 pl-10">
+        <header className={`sticky top-0 z-50 transition-all duration-300 ${
+            isScrolled
+                ? 'bg-background/80 backdrop-blur-sm border-b'
+                : location.pathname === '/'
+                    ? 'bg-gradient-to-tr from-blue-600 via-indigo-700 to-purple-800'
+                    : 'bg-background'
+        }`}>
+            <div className="max-w-[1400px] mx-auto flex h-16 items-center justify-between px-8">
                 {/* Mobile Menu */}
                 <Sheet open={isOpen} onOpenChange={setIsOpen}>
                     <SheetTrigger asChild className="md:hidden">
@@ -94,20 +109,22 @@ export function Navbar() {
                     </SheetContent>
                 </Sheet>
 
-                {/* Logo */}
-                <div className="flex items-center justify-center md:order-2 lg:mr-20">
-                    <Link to="/" className="text-xl font-semibold whitespace-nowrap">
+                {/* Left section with Logo */}
+                <div className="flex items-center gap-4">
+                    <Link to="/" className={`text-xl font-semibold whitespace-nowrap ${isScrolled ? 'text-black' : location.pathname !== '/' ? 'text-black' : 'text-white'}
+                    `}>
                         LOQO
                     </Link>
                 </div>
 
-                {/* Desktop Menu */}
-                <NavigationMenu className="hidden md:block md:order-1">
+                {/* Center section with Navigation */}
+                <NavigationMenu className="hidden md:block">
                     <NavigationMenuList className="hidden gap-6 md:flex">
                         <NavigationMenuItem>
                             <Link to="/">
                                 <NavigationMenuLink
-                                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                                    className={`text-sm font-medium transition-colors 
+                                                                        ${isScrolled || location.pathname !== '/' ? 'text-muted-foreground hover:text-primary' : 'text-white hover:text-white/80'}`}
                                 >
                                     Ana Səhifə
                                 </NavigationMenuLink>
@@ -115,51 +132,31 @@ export function Navbar() {
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger
-                                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                                className={`text-sm font-medium transition-colors text-muted-foreground
+                                `}
                             >
                                 Vakansiyalar
                             </NavigationMenuTrigger>
                             <NavigationMenuContent className="min-w-[220px]">
                                 <ul className="grid gap-2 p-4">
-                                    <li>
-                                        <Link
-                                            to="#"
-                                            className="block px-4 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md"
-                                        >
-                                            Full-time
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="#"
-                                            className="block px-4 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md"
-                                        >
-                                            Part-time
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="#"
-                                            className="block px-4 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md"
-                                        >
-                                            Remote
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="#"
-                                            className="block px-4 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md"
-                                        >
-                                            Internship
-                                        </Link>
-                                    </li>
+                                    {menuItems[1].subItems?.map((item) => (
+                                        <li key={item.name}>
+                                            <Link
+                                                to={item.link}
+                                                className="block px-4 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             </NavigationMenuContent>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <Link to="/candidates">
                                 <NavigationMenuLink
-                                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                                    className={`text-sm font-medium transition-colors 
+                                    ${isScrolled || location.pathname !== '/' ? 'text-muted-foreground hover:text-primary' : 'text-white hover:text-white/80'}`}
                                 >
                                     Namizədlər
                                 </NavigationMenuLink>
@@ -168,7 +165,8 @@ export function Navbar() {
                         <NavigationMenuItem>
                             <Link to="#">
                                 <NavigationMenuLink
-                                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                                    className={`text-sm font-medium transition-colors 
+                                    ${isScrolled || location.pathname !== '/' ? 'text-muted-foreground hover:text-primary' : 'text-white hover:text-white/80'}`}
                                 >
                                     Haqqımızda
                                 </NavigationMenuLink>
@@ -177,27 +175,15 @@ export function Navbar() {
                     </NavigationMenuList>
                 </NavigationMenu>
 
-                {/* Search and Profile */}
-                <div className="flex items-center gap-4 md:order-3">
-                    <div className="hidden sm:flex items-center gap-4">
-                        <div className="relative">
-                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                            <Input
-                                type="search"
-                                placeholder="Axtar..."
-                                className="w-48 bg-background pl-8"
-                            />
-                        </div>
-                    </div>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-sm font-medium"
-                        onClick={() => navigate("/add-vacancy")}
-                    >
-                        Profil
-                    </Button>
-                </div>
+                {/* Right section - empty for spacing */}
+                <Button
+                    variant={isScrolled ? "ghost" : "outline"}
+                    size="sm"
+                    className={`text-sm font-medium ${isScrolled ? '' : 'hover:text-white hover:bg-white/20'}`}
+                    onClick={() => navigate("/add-vacancy")}
+                >
+                    Profil
+                </Button>
             </div>
         </header>
     )

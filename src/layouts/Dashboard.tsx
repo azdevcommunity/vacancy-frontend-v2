@@ -3,7 +3,7 @@ import {FeaturesSection} from "@/components/features-section.tsx";
 import {CvCarousel} from "@/components/cv-carousel.tsx";
 import {PremiumJobPostings} from "@/components/premium-job-postings.tsx";
 import {FooterComponent} from "@/components/footer.tsx";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 
 export const Dashboard = () => {
     return (
@@ -43,7 +43,7 @@ export const Dashboard = () => {
                 />
 
                 {/* Content */}
-                <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 w-full" >
+                <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 w-full">
                     <motion.h1
                         className="text-white font-bold text-5xl sm:text-6xl lg:text-7xl mb-6"
                         initial={{opacity: 0, y: 20}}
@@ -63,8 +63,6 @@ export const Dashboard = () => {
                 </div>
 
                 {/* Decorative elements */}
-                <div
-                    className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-white to-transparent"/>
             </div>
             <FeaturesSection/>
             <CvCarousel/>

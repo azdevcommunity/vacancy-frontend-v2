@@ -18,6 +18,9 @@ export default {
 			"arc-blue": {
 				"100": "#3139FA",
 			},
+			"navbar-blue": {
+				"100": "#2D5AE4",
+			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
