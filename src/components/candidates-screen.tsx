@@ -11,7 +11,7 @@ import { BriefcaseIcon, MailIcon, MapPinIcon, PhoneIcon, XIcon } from 'lucide-re
 
 export default function CandidatesScreen() {
     const [candidates] = useState<Candidate[]>(mockCandidates)
-    const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null)
+    const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(candidates.length > 0 ? candidates[4] : null)
     const [searchTerm, setSearchTerm] = useState('')
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
@@ -38,6 +38,7 @@ export default function CandidatesScreen() {
                 <CandidatesList
                     candidates={filteredCandidates}
                     setSelectedCandidate={setSelectedCandidate}
+                    selectedCandidate={selectedCandidate}
                 />
             </div>
             <div className="w-full md:w-2/3 p-4 overflow-y-auto">
@@ -81,11 +82,17 @@ function SortOrder({setSortOrder }: { sortOrder: 'asc' | 'desc', setSortOrder: (
     )
 }
 
-function CandidatesList({ candidates, setSelectedCandidate }: { candidates: Candidate[], setSelectedCandidate: (candidate: Candidate) => void }) {
+function CandidatesList({ candidates, setSelectedCandidate, selectedCandidate }: { candidates: Candidate[], setSelectedCandidate: (candidate: Candidate) => void, selectedCandidate: Candidate | null }) {
     return (
         <div className="space-y-2">
-            {candidates.map(candidate => (
-                <Card key={candidate.id} className="cursor-pointer hover:bg-gray-100" onClick={() => setSelectedCandidate(candidate)}>
+            {candidates.map((candidate) => (
+                <Card
+                    key={candidate.id}
+                    className={`cursor-pointer hover:bg-gray-100 ${
+                        selectedCandidate?.id === candidate.id ? 'bg-blue-100 border-blue-500' : 'bg-white'
+                    }`}
+                    onClick={() => setSelectedCandidate(candidate)}
+                >
                     <CardContent className="p-4">
                         <h3 className="font-semibold">{candidate.name}</h3>
                         <p className="text-sm text-gray-600">{candidate.appliedJob}</p>

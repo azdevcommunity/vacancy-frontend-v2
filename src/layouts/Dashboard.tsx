@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export const Dashboard = () => {
     return (
         <>
-            <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
+            <div className="relative w-full h-96 flex flex-col items-center justify-center overflow-hidden">
                 {/* Background with gradient and pattern */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
                     <div className="absolute inset-0 bg-grid-white/[0.2] bg-[size:20px_20px]"/>
@@ -43,15 +43,15 @@ export const Dashboard = () => {
                 />
 
                 {/* Content */}
-                <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
+                <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 w-full" >
                     <motion.h1
                         className="text-white font-bold text-5xl sm:text-6xl lg:text-7xl mb-6"
                         initial={{opacity: 0, y: 20}}
                         animate={{opacity: 1, y: 0}}
                         transition={{duration: 0.8}}
                     >
-                        <span className="block mb-2">İdeal işin bir klik uzaqdadır</span>
-                        <span className="block">Axtarışa indi başla</span>
+                        <span className="block mb-2">İdeal işini tap</span>
+                        {/*<span className="block">Axtarışa indi başla</span>*/}
                     </motion.h1>
                     <motion.div
                         initial={{opacity: 0, y: 20}}
@@ -63,7 +63,6 @@ export const Dashboard = () => {
                 </div>
 
                 {/* Decorative elements */}
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-white/10 backdrop-blur-lg"/>
                 <div
                     className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-white to-transparent"/>
             </div>

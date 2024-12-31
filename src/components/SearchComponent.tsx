@@ -4,7 +4,7 @@ import { Search, Filter } from "lucide-react"
 
 export default function SearchComponent() {
     return (
-        <div className="relative w-full mt-10">
+        <div className="relative w-[55%] mt-10 mx-auto">
             <Input
                 type="text"
                 placeholder="Menecer, Satış mütəxəssisi, Proqramçı ..."

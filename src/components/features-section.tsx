@@ -38,7 +38,7 @@ export function FeaturesSection() {
   }
 
   return (
-      <section className="relative overflow-hidden px-6 py-24">
+      <section className="relative overflow-hidden px-6 py-24 pt-20">
         {/* Background gradient blur */}
         <div
             className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)]"/>
