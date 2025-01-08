@@ -2,7 +2,7 @@
 
 import {Menu} from 'lucide-react'
 import {useEffect, useState} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import {Button} from "@/components/ui/button"
 import {
@@ -16,7 +16,6 @@ import {Separator} from "@/components/ui/separator"
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
-    const navigate = useNavigate()
     const [isScrolled, setIsScrolled] = useState(false)
 
     useEffect(() => {
@@ -137,15 +136,16 @@ export function Navbar() {
                     </NavigationMenuList>
                 </NavigationMenu>
 
-                {/* Right section - empty for spacing */}
-                <Button
-                    variant={isScrolled ? "ghost" : "outline"}
-                    size="sm"
-                    className={`text-sm font-medium ${isScrolled ? '' : 'hover:text-white hover:bg-white/20'}`}
-                    onClick={() => navigate("/add-vacancy")}
-                >
-                    Profil
-                </Button>
+                {/*/!* Right section - empty for spacing *!/*/}
+                {/*<Button*/}
+                {/*    variant={isScrolled ? "ghost" : "outline"}*/}
+                {/*    size="sm"*/}
+                {/*    className={`text-sm font-medium ${isScrolled ? '' : 'hover:text-white hover:bg-white/20'}`}*/}
+                {/*    onClick={() => navigate("/add-vacancy")}*/}
+                {/*>*/}
+                {/*    Profil*/}
+                {/*</Button>*/}
+                <div></div>
             </div>
         </header>
     )
