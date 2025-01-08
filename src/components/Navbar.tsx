@@ -1,18 +1,18 @@
 'use client'
 
-import { Menu } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import {Menu} from 'lucide-react'
+import {useEffect, useState} from 'react'
+import {Link, useLocation} from 'react-router-dom'
 
-import { Button } from "@/components/ui/button"
+import {Button} from "@/components/ui/button"
 import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
 } from "@/components/ui/navigation-menu"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Separator } from "@/components/ui/separator"
+import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet"
+import {Separator} from "@/components/ui/separator"
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
@@ -32,10 +32,10 @@ export function Navbar() {
     }, [location.pathname])
 
     const menuItems = [
-        { name: "Ana Səhifə", icon: "🏠", path: "/" },
-        { name: "Vakansiyalar", icon: "💼", path: "/vacancies" },
-        { name: "Namizədlər", icon: "👥", path: "/candidates" },
-        { name: "Haqqımızda", icon: "ℹ️", path: "/about" },
+        {name: "Ana Səhifə", icon: "🏠", path: "/"},
+        {name: "Vakansiyalar", icon: "💼", path: "/vacancies"},
+        {name: "Namizədlər", icon: "👥", path: "/candidates"},
+        {name: "Haqqımızda", icon: "ℹ️", path: "/about"},
     ]
 
     const isMainPage = location.pathname === '/'
@@ -94,10 +94,13 @@ export function Navbar() {
                             <NavigationMenuItem key={item.path}>
                                 <Link to={item.path}>
                                     <NavigationMenuLink
-                                        className={`text-sm font-semibold transition-colors  p-3
+                                        className={`text-sm font-semibold  p-3
                                         ${shouldUseTransparentBg
                                             ? 'text-white hover:text-black hover:bg-white rounded-xl'
-                                            : 'text-muted-foreground hover:text-primary'}`}
+                                            : `text-muted-foreground hover:bg-accent ${location.pathname !== item.path  ? 'hover:text-accent-foreground' : ''} rounded-xl`}
+                                            ${location.pathname === item.path && location.pathname !== '/' ? 'bg-gradient-to-tr from-blue-600 via-indigo-700 to-purple-800 text-white' : ''}
+
+                                            `}
                                     >
                                         {item.name}
                                     </NavigationMenuLink>
