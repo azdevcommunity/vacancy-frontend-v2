@@ -45,4 +45,31 @@ interface PostgreSQLConnectionData {
     sslConfig?: SSLConfig;
 }
 
-export type { MuSQLConnectionData, PostgreSQLConnectionData, SSLConfig, Connection };
+interface Job {
+    id: string
+    title: string
+    companyName: string
+    companyLogo: string
+    views: number
+    postedAt: Date
+    isFavorite: boolean
+    grade: string
+    type: string
+    salary: string
+    location: string
+    postingType: string
+    description: {
+        duties: string[]
+        education: string[]
+        experience: string[]
+        requiredSkills: string[]
+        preferredSkills: string[]
+    }
+    applicationDeadline: Date
+    category: string
+    schedule: string
+}
+
+
+
+export type { MuSQLConnectionData, PostgreSQLConnectionData, SSLConfig, Connection, Job };

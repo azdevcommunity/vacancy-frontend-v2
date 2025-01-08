@@ -36,11 +36,11 @@ export interface Job {
     views: number
     postedAt: Date
     isFavorite: boolean
-    grade: JobGrade
-    type: JobType
-    salary: SalaryRange
+    grade: string
+    type: string
+    salary: string
     location: string
-    postingType: PostingType
+    postingType: string
     description: {
         duties: string[]
         education: string[]
@@ -50,4 +50,5 @@ export interface Job {
     }
     applicationDeadline: Date
     category: string
+    schedule: string
 }

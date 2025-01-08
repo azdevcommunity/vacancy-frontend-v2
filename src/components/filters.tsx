@@ -1,10 +1,5 @@
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
 
 interface FiltersProps {
     onFilterChange: (key: string, value: string) => void
@@ -12,97 +7,77 @@ interface FiltersProps {
 
 export function Filters({ onFilterChange }: FiltersProps) {
     return (
-        <div className="flex flex-wrap gap-4">
-            <Select onValueChange={(value) => onFilterChange('postingType', value)}>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Elanlar" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Select onValueChange={(value) => onFilterChange("location", value)}>
+                <SelectTrigger>
+                    <SelectValue placeholder="Yer (Şəhər/Bölgə/Ölkə)" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="job postings">İş elanları</SelectItem>
-                    <SelectItem value="Experience program">Təcrübə proqramı</SelectItem>
-                    <SelectItem value="Taqaud program">Təqaüd proqramı</SelectItem>
-                    <SelectItem value="Tender">Tender</SelectItem>
-                    <SelectItem value="Qrant">Qrant</SelectItem>
-                    <SelectItem value="Other">Digər</SelectItem>
+                    <SelectItem value="baku">Bakı</SelectItem>
+                    <SelectItem value="ganja">Gəncə</SelectItem>
+                    <SelectItem value="sumgait">Sumqayıt</SelectItem>
                 </SelectContent>
             </Select>
 
-            <Select onValueChange={(value) => onFilterChange('timeFrame', value)}>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Yerləşdirilib" />
+            <Select onValueChange={(value) => onFilterChange("category", value)}>
+                <SelectTrigger>
+                    <SelectValue placeholder="İş Sahəsi (Kateqoriya)" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="1">1 gün</SelectItem>
-                    <SelectItem value="3">3 gün</SelectItem>
-                    <SelectItem value="7">1 həftə</SelectItem>
-                    <SelectItem value="10">10 gün</SelectItem>
-                    <SelectItem value="14">2 həftə</SelectItem>
+                    <SelectItem value="it">IT</SelectItem>
+                    <SelectItem value="education">Təhsil</SelectItem>
+                    <SelectItem value="finance">Maliyyə</SelectItem>
+                    <SelectItem value="healthcare">Səhiyyə</SelectItem>
                 </SelectContent>
             </Select>
 
-            <Select onValueChange={(value) => onFilterChange('sorting', value)}>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Sıralama" />
+            <div className="flex space-x-2">
+                <Input
+                    type="number"
+                    placeholder="Min Maaş"
+                    onChange={(e) => onFilterChange("minSalary", e.target.value)}
+                />
+                <Input
+                    type="number"
+                    placeholder="Max Maaş"
+                    onChange={(e) => onFilterChange("maxSalary", e.target.value)}
+                />
+            </div>
+
+            <Select onValueChange={(value) => onFilterChange("jobType", value)}>
+                <SelectTrigger>
+                    <SelectValue placeholder="İş Növü" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="alphabetical">Əmək haqqı və Vəzifə adı A-Z</SelectItem>
-                    <SelectItem value="company">Şirkət adı A-Z</SelectItem>
-                    <SelectItem value="views">Ən çox baxış sayı</SelectItem>
-                    <SelectItem value="popular">Ən populyar kateqoriya</SelectItem>
+                    <SelectItem value="full-time">Tam ştat</SelectItem>
+                    <SelectItem value="part-time">Yarım ştat</SelectItem>
+                    <SelectItem value="remote">Uzaqdan iş</SelectItem>
+                    <SelectItem value="freelance">Freelancer</SelectItem>
                 </SelectContent>
             </Select>
 
-            <Select onValueChange={(value) => onFilterChange('grade', value)}>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Vəzifə dərəcəsi" />
+            <Select onValueChange={(value) => onFilterChange("schedule", value)}>
+                <SelectTrigger>
+                    <SelectValue placeholder="İş Qrafiki" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="Experienced Köməkçi">Təcrübəli Köməkçi</SelectItem>
-                    <SelectItem value="mutaxəssis">Mütəxəssis</SelectItem>
-                    <SelectItem value="manager">Menecer</SelectItem>
-                    <SelectItem value="Director">Direktor</SelectItem>
-                    <SelectItem value="up guidance">Yuxarı rəhbərlik</SelectItem>
+                    <SelectItem value="shift">Növbəli iş</SelectItem>
+                    <SelectItem value="fixed">Sabit iş qrafiki</SelectItem>
+                    <SelectItem value="flexible">Çevik iş saatları</SelectItem>
                 </SelectContent>
             </Select>
 
-            <Select onValueChange={(value) => onFilterChange('salary', value)}>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Maaş" />
+            <Select onValueChange={(value) => onFilterChange("postingDate", value)}>
+                <SelectTrigger>
+                    <SelectValue placeholder="Vakansiyanın Tarixi" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="0-500">0-500</SelectItem>
-                    <SelectItem value="500-1000">500-1000</SelectItem>
-                    <SelectItem value="1000-2000">1000-2000</SelectItem>
-                    <SelectItem value="2000-5000">2000-5000</SelectItem>
-                    <SelectItem value="5000+">5000+</SelectItem>
-                </SelectContent>
-            </Select>
-
-            <Select onValueChange={(value) => onFilterChange('location', value)}>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Ərazi" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="Baku">Bakı</SelectItem>
-                    <SelectItem value="Ganja">Gəncə</SelectItem>
-                    <SelectItem value="Agdash">Ağdaş</SelectItem>
-                    {/* Add more cities as needed */}
-                </SelectContent>
-            </Select>
-
-            <Select onValueChange={(value) => onFilterChange('type', value)}>
-                <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Məşğulluq" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="Full">Tam</SelectItem>
-                    <SelectItem value="I'm not sure">Natamam</SelectItem>
-                    <SelectItem value="experience">Təcrübə</SelectItem>
-                    <SelectItem value="temporary">Müvəqqəti</SelectItem>
-                    <SelectItem value="distance">Məsafədən</SelectItem>
-                    <SelectItem value="Frilans (Xidmət)">Frilans (Xidmət)</SelectItem>
+                    <SelectItem value="last-week">Son bir həftə</SelectItem>
+                    <SelectItem value="last-month">Son bir ay</SelectItem>
+                    <SelectItem value="new">Yeni yerləşdirilənlər</SelectItem>
                 </SelectContent>
             </Select>
         </div>
     )
 }
+

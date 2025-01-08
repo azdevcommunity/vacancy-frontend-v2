@@ -14,12 +14,20 @@ export default function CandidatesScreen() {
     const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(candidates.length > 0 ? candidates[4] : null)
     const [searchTerm, setSearchTerm] = useState('')
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
+    const [educationFilter, setEducationFilter] = useState<string>('')
+    const [experienceFilter, setExperienceFilter] = useState<string>('')
+    const [languageFilter, setLanguageFilter] = useState<string>('')
+    const [skillFilter, setSkillFilter] = useState<string>('')
 
     const filteredCandidates = useMemo(() => {
         return candidates
             .filter(candidate =>
-                candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                candidate.appliedJob.toLowerCase().includes(searchTerm.toLowerCase())
+                (candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    candidate.appliedJob.toLowerCase().includes(searchTerm.toLowerCase())) &&
+                (educationFilter === '' || candidate.education === educationFilter) &&
+                (experienceFilter === '' || mapExperienceToRange(candidate.experience) === experienceFilter) &&
+                (languageFilter === '' || candidate.languages.includes(languageFilter)) &&
+                (skillFilter === '' || candidate.skills.some(skill => skill.toLowerCase().includes(skillFilter.toLowerCase())))
             )
             .sort((a, b) => {
                 if (sortOrder === 'asc') {
@@ -28,13 +36,19 @@ export default function CandidatesScreen() {
                     return new Date(b.applicationDate).getTime() - new Date(a.applicationDate).getTime()
                 }
             })
-    }, [candidates, searchTerm, sortOrder])
+    }, [candidates, searchTerm, sortOrder, educationFilter, experienceFilter, languageFilter, skillFilter])
 
     return (
         <div className="flex flex-col md:flex-row h-screen bg-gray-100">
             <div className="w-full md:w-1/3 p-4 bg-white shadow-md overflow-y-auto">
                 <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
                 <SortOrder sortOrder={sortOrder} setSortOrder={setSortOrder} />
+                <Filters
+                    setEducationFilter={setEducationFilter}
+                    setExperienceFilter={setExperienceFilter}
+                    setLanguageFilter={setLanguageFilter}
+                    setSkillFilter={setSkillFilter}
+                />
                 <CandidatesList
                     candidates={filteredCandidates}
                     setSelectedCandidate={setSelectedCandidate}
@@ -55,33 +69,6 @@ export default function CandidatesScreen() {
         </div>
     )
 }
-
-function SearchBar({ searchTerm, setSearchTerm }: { searchTerm: string, setSearchTerm: (term: string) => void }) {
-    return (
-        <Input
-            type="text"
-            placeholder="Search by name or job posting number"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="mb-4"
-        />
-    )
-}
-
-function SortOrder({setSortOrder }: { sortOrder: 'asc' | 'desc', setSortOrder: (order: 'asc' | 'desc') => void }) {
-    return (
-        <Select onValueChange={(value: 'asc' | 'desc') => setSortOrder(value)}>
-            <SelectTrigger className="mb-4 w-full">
-                <SelectValue placeholder="Sort by date" />
-            </SelectTrigger>
-            <SelectContent>
-                <SelectItem value="desc">Newest first</SelectItem>
-                <SelectItem value="asc">Oldest first</SelectItem>
-            </SelectContent>
-        </Select>
-    )
-}
-
 function CandidatesList({ candidates, setSelectedCandidate, selectedCandidate }: { candidates: Candidate[], setSelectedCandidate: (candidate: Candidate) => void, selectedCandidate: Candidate | null }) {
     return (
         <div className="space-y-2">
@@ -164,5 +151,93 @@ function InfoItem({ icon, label, value }: { icon: React.ReactNode, label: string
                 <p className="text-sm md:text-base font-semibold">{value || 'Not provided'}</p>
             </div>
         </div>
+    )
+}
+
+function mapExperienceToRange(experience: string): string {
+    const years = parseInt(experience);
+    if (isNaN(years)) return '';
+    if (years === 0) return '0';
+    if (years >= 1 && years <= 3) return '1-3';
+    if (years >= 3 && years <= 5) return '3-5';
+    return '';
+}
+
+function Filters({ setEducationFilter, setExperienceFilter, setLanguageFilter, setSkillFilter }: {
+    setEducationFilter: (value: string) => void,
+    setExperienceFilter: (value: string) => void,
+    setLanguageFilter: (value: string) => void,
+    setSkillFilter: (value: string) => void
+}) {
+    return (
+        <div className="space-y-4 mb-4">
+            <Select onValueChange={setEducationFilter}>
+                <SelectTrigger>
+                    <SelectValue placeholder="Təhsil Tələbi" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="all">Bütün</SelectItem>
+                    <SelectItem value="Orta">Orta</SelectItem>
+                    <SelectItem value="Ali">Ali</SelectItem>
+                    <SelectItem value="Peşə">Peşə təhsili</SelectItem>
+                </SelectContent>
+            </Select>
+
+            <Select onValueChange={setExperienceFilter}>
+                <SelectTrigger>
+                    <SelectValue placeholder="İş Təcrübəsi" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="all">Bütün</SelectItem>
+                    <SelectItem value="0">Təcrübəsiz</SelectItem>
+                    <SelectItem value="1-3">1-3 il</SelectItem>
+                    <SelectItem value="3-5">3-5 il</SelectItem>
+                </SelectContent>
+            </Select>
+
+            <Select onValueChange={setLanguageFilter}>
+                <SelectTrigger>
+                    <SelectValue placeholder="Dil Bilikləri" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="all">Bütün</SelectItem>
+                    <SelectItem value="English">İngilis dili</SelectItem>
+                    <SelectItem value="Russian">Rus dili</SelectItem>
+                    <SelectItem value="Other">Digər dil bilikləri</SelectItem>
+                </SelectContent>
+            </Select>
+
+            <Input
+                type="text"
+                placeholder="Xüsusi Bacarıqlar"
+                onChange={(e) => setSkillFilter(e.target.value)}
+            />
+        </div>
+    )
+}
+
+function SearchBar({ searchTerm, setSearchTerm }: { searchTerm: string, setSearchTerm: (term: string) => void }) {
+    return (
+        <Input
+            type="text"
+            placeholder="Search by name or job posting number"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="mb-4"
+        />
+    )
+}
+
+function SortOrder({setSortOrder }: { sortOrder: 'asc' | 'desc', setSortOrder: (order: 'asc' | 'desc') => void }) {
+    return (
+        <Select onValueChange={(value: 'asc' | 'desc') => setSortOrder(value)}>
+            <SelectTrigger className="mb-4 w-full">
+                <SelectValue placeholder="Sort by date" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="desc">Newest first</SelectItem>
+                <SelectItem value="asc">Oldest first</SelectItem>
+            </SelectContent>
+        </Select>
     )
 }

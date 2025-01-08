@@ -1,20 +1,18 @@
 'use client'
 
-import { Menu, ChevronRight } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import {Menu} from 'lucide-react'
+import {useEffect, useState} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
 
-import { Button } from "@/components/ui/button"
+import {Button} from "@/components/ui/button"
 import {
     NavigationMenu,
-    NavigationMenuContent,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Separator } from "@/components/ui/separator"
+import {Sheet, SheetContent, SheetTrigger} from "@/components/ui/sheet"
+import {Separator} from "@/components/ui/separator"
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
@@ -31,20 +29,15 @@ export function Navbar() {
     }, [])
 
     const menuItems = [
-        { name: "Ana Səhifə", link: "#", icon: "🏠", path: "/" },
+        {name: "Ana Səhifə", link: "#", icon: "🏠", path: "/"},
         {
             name: "Vakansiyalar",
             link: "#",
             icon: "💼",
-            subItems: [
-                { name: "Full-time", link: "#" },
-                { name: "Part-time", link: "#" },
-                { name: "Remote", link: "#" },
-                { name: "Internship", link: "#" },
-            ],
+            path: "/vacancies",
         },
-        { name: "Namizədlər", path: "/candidates", icon: "👥" },
-        { name: "Haqqımızda", link: "#", icon: "ℹ️" },
+        {name: "Namizədlər", path: "/candidates", icon: "👥"},
+        {name: "Haqqımızda", link: "#", icon: "ℹ️"},
     ]
 
     return (
@@ -60,7 +53,7 @@ export function Navbar() {
                 <Sheet open={isOpen} onOpenChange={setIsOpen}>
                     <SheetTrigger asChild className="md:hidden">
                         <Button variant="ghost" size="icon">
-                            <Menu className="h-5 w-5" />
+                            <Menu className="h-5 w-5"/>
                             <span className="sr-only">Toggle menu</span>
                         </Button>
                     </SheetTrigger>
@@ -72,37 +65,17 @@ export function Navbar() {
                         <nav className="p-4">
                             {menuItems.map((item, index) => (
                                 <div key={index} className="mb-4">
-                                    {item.subItems ? (
-                                        <div className="space-y-2">
-                                            <h2 className="flex items-center text-lg font-semibold">
-                                                <span className="mr-2 text-2xl">{item.icon}</span>
-                                                {item.name}
-                                            </h2>
-                                            <div className="ml-8 space-y-1">
-                                                {item.subItems.map((subItem, subIndex) => (
-                                                    <Link
-                                                        key={subIndex}
-                                                        to={subItem.link}
-                                                        className="flex items-center rounded-md py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-                                                        onClick={() => setIsOpen(false)}
-                                                    >
-                                                        <ChevronRight className="mr-2 h-4 w-4" />
-                                                        {subItem.name}
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <Link
-                                            to={item.path!}
-                                            className="flex items-center rounded-md py-2 text-lg font-semibold transition-colors hover:bg-accent hover:text-accent-foreground"
-                                            onClick={() => setIsOpen(false)}
-                                        >
-                                            <span className="mr-2 text-2xl">{item.icon}</span>
-                                            {item.name}
-                                        </Link>
-                                    )}
-                                    {index < menuItems.length - 1 && <Separator className="my-2" />}
+
+                                    <Link
+                                        to={item.path!}
+                                        className="flex items-center rounded-md py-2 text-lg font-semibold transition-colors hover:bg-accent hover:text-accent-foreground"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        <span className="mr-2 text-2xl">{item.icon}</span>
+                                        {item.name}
+                                    </Link>
+
+                                    {index < menuItems.length - 1 && <Separator className="my-2"/>}
                                 </div>
                             ))}
                         </nav>
@@ -111,7 +84,8 @@ export function Navbar() {
 
                 {/* Left section with Logo */}
                 <div className="flex items-center gap-4">
-                    <Link to="/" className={`text-xl font-semibold whitespace-nowrap ${isScrolled ? 'text-black' : location.pathname !== '/' ? 'text-black' : 'text-white'}
+                    <Link to="/"
+                          className={`text-xl font-semibold whitespace-nowrap ${isScrolled ? 'text-black' : location.pathname !== '/' ? 'text-black' : 'text-white'}
                     `}>
                         LOQO
                     </Link>
@@ -131,26 +105,14 @@ export function Navbar() {
                             </Link>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger
-                                className={`text-sm font-medium transition-colors text-muted-foreground
-                                `}
-                            >
-                                Vakansiyalar
-                            </NavigationMenuTrigger>
-                            <NavigationMenuContent className="min-w-[220px]">
-                                <ul className="grid gap-2 p-4">
-                                    {menuItems[1].subItems?.map((item) => (
-                                        <li key={item.name}>
-                                            <Link
-                                                to={item.link}
-                                                className="block px-4 py-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-md"
-                                            >
-                                                {item.name}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </NavigationMenuContent>
+                            <Link to="/vacancies">
+                                <NavigationMenuLink
+                                    className={`text-sm font-medium transition-colors 
+                                                                        ${isScrolled || location.pathname !== '/' ? 'text-muted-foreground hover:text-primary' : 'text-white hover:text-white/80'}`}
+                                >
+                                    Vakansiyalar
+                                </NavigationMenuLink>
+                            </Link>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <Link to="/candidates">

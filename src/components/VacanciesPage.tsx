@@ -1,10 +1,10 @@
 'use client'
 
-import {useState} from "react"
-import {Job} from "@/types/job"
-import {Filters} from "@/components/filters"
-import {JobListItem} from "@/components/job-list-item"
-import {JobDetails} from "@/components/job-details"
+import { useState } from "react"
+import { Filters } from "@/components/filters"
+import { JobListItem } from "@/components/job-list-item"
+import { JobDetails } from "@/components/job-details"
+import {Job} from "@/types/job.ts";
 
 // Sample data - in a real app this would come from an API
 const sampleJobs: Job[] = [
@@ -17,7 +17,7 @@ const sampleJobs: Job[] = [
         postedAt: new Date(),
         isFavorite: false,
         grade: "mutaxəssis",
-        type: "Full",
+        type: "full-time",
         salary: "2000-5000",
         location: "Baku",
         postingType: "job postings",
@@ -55,7 +55,8 @@ const sampleJobs: Job[] = [
             ]
         },
         applicationDeadline: new Date('2024-12-27'),
-        category: "Kompüterləşmə və İKT"
+        category: "IT",
+        schedule: "fixed",
     },
     // Add more sample jobs as needed
 ]
@@ -63,10 +64,33 @@ const sampleJobs: Job[] = [
 export default function VacanciesPage() {
     const [selectedJob, setSelectedJob] = useState<Job | null>(sampleJobs[0])
     const [, setFavorites] = useState<Set<string>>(new Set())
+    const [filteredJobs, setFilteredJobs] = useState<Job[]>(sampleJobs)
 
     const handleFilterChange = (key: string, value: string) => {
-        // Implement filtering logic here
-        console.log(`Filter changed: ${key} = ${value}`)
+        setFilteredJobs(sampleJobs.filter(job => {
+            switch (key) {
+                case "location":
+                    return job.location.toLowerCase() === value.toLowerCase()
+                case "category":
+                    return job.category.toLowerCase() === value.toLowerCase()
+                case "minSalary":
+                    return parseInt(job.salary.split('-')[0]) >= parseInt(value)
+                case "maxSalary":
+                    return parseInt(job.salary.split('-')[1]) <= parseInt(value)
+                case "jobType":
+                    return job.type.toLowerCase() === value.toLowerCase()
+                case "schedule":
+                    return job.schedule.toLowerCase() === value.toLowerCase()
+                case "postingDate":
+                    { const daysSincePosted = (new Date().getTime() - job.postedAt.getTime()) / (1000 * 3600 * 24)
+                    if (value === "last-week") return daysSincePosted <= 7
+                    if (value === "last-month") return daysSincePosted <= 30
+                    if (value === "new") return daysSincePosted <= 3
+                    return true }
+                default:
+                    return true
+            }
+        }))
     }
 
     const handleToggleFavorite = (jobId: string) => {
@@ -86,7 +110,7 @@ export default function VacanciesPage() {
             {/* Filters */}
             <div className="bg-white border-b">
                 <div className="container mx-auto px-4 py-4">
-                    <Filters onFilterChange={handleFilterChange}/>
+                    <Filters onFilterChange={handleFilterChange} />
                 </div>
             </div>
 
@@ -96,7 +120,7 @@ export default function VacanciesPage() {
                     {/* Job listings */}
                     <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
                         <div className="divide-y">
-                            {sampleJobs.map((job) => (
+                            {filteredJobs.map((job) => (
                                 <JobListItem
                                     key={job.id}
                                     job={job}
@@ -110,7 +134,7 @@ export default function VacanciesPage() {
 
                     {/* Job details */}
                     <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
-                        {selectedJob && <JobDetails job={selectedJob}/>}
+                        {selectedJob && <JobDetails job={selectedJob} />}
                     </div>
                 </div>
             </main>

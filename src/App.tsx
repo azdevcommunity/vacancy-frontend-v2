@@ -47,8 +47,7 @@ function App() {
         <Router>
             <div className="flex flex-col">
                 {/* Navbar with project selection */}
-                <Navbar
-                />
+                <Navbar/>
 
                 {/* Main Content Area */}
                 <div className="flex w-screen">

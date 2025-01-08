@@ -8,7 +8,9 @@ export interface Candidate {
     phone: string;
     location: string;
     experience: string;
+    education: string;
     skills: string[];
+    languages: string[],
 }
 
 export const mockCandidates: Candidate[] = [
@@ -22,6 +24,8 @@ export const mockCandidates: Candidate[] = [
         phone: '+1 (555) 123-4567',
         location: 'New York, NY',
         experience: '5 years',
+        education: 'Ali',
+        languages: ['English', 'Russian'],
         skills: ['React', 'TypeScript', 'CSS', 'HTML', 'JavaScript'],
     },
     {
@@ -34,6 +38,8 @@ export const mockCandidates: Candidate[] = [
         phone: '+1 (555) 987-6543',
         location: 'San Francisco, CA',
         experience: '3 years',
+        education: 'Ali',
+        languages: ['English', 'Russian'],
         skills: ['Figma', 'Adobe XD', 'User Research', 'Prototyping', 'Wireframing'],
     },
     {
@@ -46,6 +52,8 @@ export const mockCandidates: Candidate[] = [
         phone: '+1 (555) 246-8135',
         location: 'Chicago, IL',
         experience: '7 years',
+        education: 'Ali',
+        languages: ['English', 'Russian'],
         skills: ['Node.js', 'Python', 'MongoDB', 'SQL', 'Docker'],
     },
     {
@@ -58,7 +66,9 @@ export const mockCandidates: Candidate[] = [
         phone: '+1 (555) 369-2580',
         location: 'Boston, MA',
         experience: '4 years',
+        education: 'Ali',
         skills: ['Python', 'R', 'Machine Learning', 'Data Visualization', 'SQL'],
+        languages: ['English', 'Russian'],
     },
     {
         id: '5',
@@ -70,6 +80,8 @@ export const mockCandidates: Candidate[] = [
         phone: '+1 (555) 159-7530',
         location: 'Seattle, WA',
         experience: '6 years',
+        education: 'Ali',
+        languages: ['English', 'Russian'],
         skills: ['AWS', 'Kubernetes', 'Jenkins', 'Terraform', 'Linux'],
     }
 ];
