@@ -94,9 +94,9 @@ export function Navbar() {
                             <NavigationMenuItem key={item.path}>
                                 <Link to={item.path}>
                                     <NavigationMenuLink
-                                        className={`text-sm font-medium transition-colors 
+                                        className={`text-sm font-semibold transition-colors  p-3
                                         ${shouldUseTransparentBg
-                                            ? 'text-white hover:text-white/80'
+                                            ? 'text-white hover:text-black hover:bg-white rounded-xl'
                                             : 'text-muted-foreground hover:text-primary'}`}
                                     >
                                         {item.name}
