@@ -38,7 +38,7 @@ export function FeaturesSection() {
   }
 
   return (
-      <section className="relative overflow-hidden px-6 py-24 pt-20">
+      <section className="relative overflow-hidden px-6 py-24 pt-8">
         {/* Background gradient blur */}
         <div
             className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)]"/>
@@ -53,7 +53,7 @@ export function FeaturesSection() {
             Xidmətlərimiz
           </motion.h2>
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, index) => (
                 <motion.div
                     key={feature.title}

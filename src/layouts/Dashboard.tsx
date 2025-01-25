@@ -8,7 +8,7 @@ import {motion} from "framer-motion";
 export const Dashboard = () => {
     return (
         <>
-            <div className="relative w-full h-96 flex flex-col items-center justify-center overflow-hidden">
+            <div className="relative w-full h-80 flex flex-col items-center justify-center overflow-hidden">
                 {/* Background with gradient and pattern */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
                     <div className="absolute inset-0 bg-grid-white/[0.2] bg-[size:20px_20px]"/>

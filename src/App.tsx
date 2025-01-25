@@ -7,6 +7,8 @@ import {Navbar} from "@/components/Navbar.tsx";
 import VacanciesPage from "@/components/VacanciesPage.tsx";
 import AddVacancy from "@/components/AddVacancy.tsx";
 import CandidatesScreen from "@/components/candidates-screen.tsx";
+import AboutUs from "@/components/AboutUs.tsx";
+import JobSeekerProfile from "@/components/JobSeekerProfile.tsx";
 
 function App() {
     const [isSidebarOpen] = useState(false);
@@ -68,6 +70,8 @@ function App() {
                             <Route path="/vacancies" element={<VacanciesPage/>}/>
                             <Route path="/add-vacancy" element={<AddVacancy/>}/>
                             <Route path={"/candidates"} element={<CandidatesScreen/>}/>
+                            <Route path={"/about"} element={<AboutUs/>}/>
+                            <Route path={"/profile"} element={<JobSeekerProfile/>}/>
                         </Routes>
                     </div>
                 </div>
